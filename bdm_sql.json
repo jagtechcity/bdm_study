@@ -1,0 +1,833 @@
+[
+  {
+    "id": 1001,
+    "topic_group": "SQL DML Basics",
+    "topic": "INSERT",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which statement correctly inserts a single row of values into the VENDOR table?",
+    "options": [
+      "ADD ROW vendor (21225, 'Bryson, Inc.', 'Smithson');",
+      "INSERT INTO vendor VALUES (21225, 'Bryson, Inc.', 'Smithson', '615', '223-3234', 'TN', 'Y');",
+      "INSERT vendor SET (21225, 'Bryson, Inc.', 'Smithson');",
+      "PUT INTO vendor (21225, 'Bryson, Inc.', 'Smithson');"
+    ],
+    "answer": 1,
+    "explanation": "Standard SQL syntax: INSERT INTO <table> VALUES (...). The values must match the column order of the table definition.",
+    "slideRef": "Ch8 Slide 2"
+  },
+  {
+    "id": 1002,
+    "topic_group": "SQL DML Basics",
+    "topic": "UPDATE",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which is the correct way to change the P_INDATE of one specific product (P_CODE='13-Q2/P2') to '2014-11-18 11:11:11'?",
+    "options": [
+      "UPDATE PRODUCT WHERE P_CODE='13-Q2/P2' SET P_INDATE='2014-11-18 11:11:11';",
+      "UPDATE PRODUCT SET P_INDATE='2014-11-18 11:11:11' WHERE P_CODE='13-Q2/P2';",
+      "MODIFY PRODUCT SET P_INDATE='2014-11-18 11:11:11' WHERE P_CODE='13-Q2/P2';",
+      "CHANGE PRODUCT P_INDATE='2014-11-18 11:11:11' WHERE P_CODE='13-Q2/P2';"
+    ],
+    "answer": 1,
+    "explanation": "Order matters: UPDATE <table> SET <col>=<value> WHERE <condition>. Forgetting WHERE updates ALL rows.",
+    "slideRef": "Ch8 Slide 3"
+  },
+  {
+    "id": 1003,
+    "topic_group": "SQL DML Basics",
+    "topic": "Comparison Operators",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which operator means 'not equal to' in standard SQL?",
+    "options": [
+      "!=",
+      "<>",
+      "Either != or <> (depending on dialect; <> is the ANSI standard)",
+      "NOT="
+    ],
+    "answer": 2,
+    "explanation": "<> is the ANSI SQL standard. Most dialects also accept !=, but <> is universally supported.",
+    "slideRef": "Ch8 Slide 4"
+  },
+  {
+    "id": 1004,
+    "topic_group": "SQL DML Basics",
+    "topic": "BETWEEN",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which query selects all products with prices between $50 and $100, inclusive?",
+    "options": [
+      "SELECT * FROM PRODUCT WHERE P_PRICE > 50 AND P_PRICE < 100;",
+      "SELECT * FROM PRODUCT WHERE P_PRICE BETWEEN 50.00 AND 100.00;",
+      "SELECT * FROM PRODUCT WHERE P_PRICE IN (50, 100);",
+      "SELECT * FROM PRODUCT WHERE P_PRICE RANGE 50 TO 100;"
+    ],
+    "answer": 1,
+    "explanation": "BETWEEN x AND y is inclusive on both ends. Note: > 50 AND < 100 would EXCLUDE 50 and 100, so it's not equivalent.",
+    "slideRef": "Ch8 Slide 5"
+  },
+  {
+    "id": 1005,
+    "topic_group": "SQL DML Basics",
+    "topic": "IS NULL",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "How do you correctly find products that have no vendor assigned (V_CODE is null)?",
+    "options": [
+      "SELECT * FROM PRODUCT WHERE V_CODE = NULL;",
+      "SELECT * FROM PRODUCT WHERE V_CODE == NULL;",
+      "SELECT * FROM PRODUCT WHERE V_CODE IS NULL;",
+      "SELECT * FROM PRODUCT WHERE V_CODE = 'NULL';"
+    ],
+    "answer": 2,
+    "explanation": "NULL comparisons require IS NULL or IS NOT NULL. The expression 'V_CODE = NULL' is never true (or false) \u2014 it evaluates to UNKNOWN.",
+    "slideRef": "Ch8 Slide 6"
+  },
+  {
+    "id": 1006,
+    "topic_group": "SQL DML Basics",
+    "topic": "DROP TABLE",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which statement deletes the PART table from the database entirely (structure and data)?",
+    "options": [
+      "DELETE TABLE PART;",
+      "DELETE FROM PART;",
+      "DROP TABLE PART;",
+      "REMOVE TABLE PART;"
+    ],
+    "answer": 2,
+    "explanation": "DROP TABLE removes the table itself. DELETE FROM PART would only remove rows but keep the structure.",
+    "slideRef": "Ch8 Slide 9"
+  },
+  {
+    "id": 1007,
+    "topic_group": "SQL Joins",
+    "topic": "CROSS JOIN",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does 'SELECT * FROM invoice CROSS JOIN line' return?",
+    "options": [
+      "Only rows where invoice and line have matching keys",
+      "All possible combinations of invoice rows and line rows (Cartesian product)",
+      "Rows from invoice that don't appear in line",
+      "Rows from line ordered by invoice date"
+    ],
+    "answer": 1,
+    "explanation": "CROSS JOIN produces the Cartesian product \u2014 every row of one table paired with every row of the other.",
+    "slideRef": "Ch8 Slide 15"
+  },
+  {
+    "id": 1008,
+    "topic_group": "SQL Joins",
+    "topic": "NATURAL JOIN",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does 'SELECT CUS_CODE, CUS_LNAME, INV_NUMBER FROM CUSTOMER NATURAL JOIN INVOICE' do?",
+    "options": [
+      "Joins CUSTOMER and INVOICE on the column(s) sharing the same name in both tables, returning the listed columns",
+      "Returns the Cartesian product of CUSTOMER and INVOICE",
+      "Joins only on CUS_CODE explicitly named in the SELECT list",
+      "Returns all customers regardless of invoices"
+    ],
+    "answer": 0,
+    "explanation": "NATURAL JOIN automatically uses all common-named columns as the join condition. No ON or USING clause needed.",
+    "slideRef": "Ch8 Slide 17"
+  },
+  {
+    "id": 1009,
+    "topic_group": "SQL Joins",
+    "topic": "JOIN USING",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Which is the correct syntax to join three tables on shared column names?",
+    "options": [
+      "FROM INVOICE JOIN LINE USING INV_NUMBER JOIN PRODUCT USING P_CODE",
+      "FROM INVOICE JOIN LINE USING (INV_NUMBER) JOIN PRODUCT USING (P_CODE)",
+      "FROM INVOICE NATURAL JOIN LINE WITH INV_NUMBER NATURAL JOIN PRODUCT WITH P_CODE",
+      "FROM INVOICE INNER JOIN LINE BY INV_NUMBER INNER JOIN PRODUCT BY P_CODE"
+    ],
+    "answer": 1,
+    "explanation": "USING requires parentheses around the column name(s). It joins where those columns match, like NATURAL JOIN but with explicit columns.",
+    "slideRef": "Ch8 Slide 19"
+  },
+  {
+    "id": 1010,
+    "topic_group": "SQL Joins",
+    "topic": "JOIN ON",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "When is JOIN ON necessary instead of JOIN USING?",
+    "options": [
+      "When the joined columns share the same name in both tables",
+      "When the joined columns have DIFFERENT names in the two tables",
+      "When you want a Cartesian product",
+      "Never \u2014 JOIN ON is just a slower alternative"
+    ],
+    "answer": 1,
+    "explanation": "JOIN ON lets you write any condition (e.g., E.EMP_MGR = M.EMP_NUM), making it required when columns have different names.",
+    "slideRef": "Ch8 Slide 20"
+  },
+  {
+    "id": 1011,
+    "topic_group": "SQL Joins",
+    "topic": "Self Join",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "The query 'SELECT DISTINCT E.EMP_MGR, M.EMP_LNAME, E.EMP_NUM, E.EMP_LNAME FROM EMP E JOIN EMP M ON E.EMP_MGR=M.EMP_NUM' is an example of what?",
+    "options": [
+      "An outer join",
+      "A self join (joining a table to itself with two aliases)",
+      "A cross join",
+      "A natural join"
+    ],
+    "answer": 1,
+    "explanation": "The EMP table is joined to itself using aliases E and M to relate employees (E) to their managers (M). This is a self join.",
+    "slideRef": "Ch8 Slide 21"
+  },
+  {
+    "id": 1012,
+    "topic_group": "SQL Joins",
+    "topic": "LEFT JOIN result",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'SELECT P_CODE, VENDOR.V_CODE, V_NAME FROM VENDOR LEFT JOIN PRODUCT ON VENDOR.V_CODE=PRODUCT.V_CODE' will return:",
+    "options": [
+      "Only vendors that have at least one product",
+      "All vendors, plus product info; vendors with no products show NULL for P_CODE",
+      "All products, plus vendor info; products with no vendor show NULL",
+      "Only products that have at least one vendor"
+    ],
+    "answer": 1,
+    "explanation": "LEFT JOIN keeps ALL rows from the LEFT table (VENDOR). Vendors without matching products still appear, with NULL in the unmatched product columns.",
+    "slideRef": "Ch8 Slide 22"
+  },
+  {
+    "id": 1013,
+    "topic_group": "SQL Joins",
+    "topic": "RIGHT JOIN result",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'... FROM VENDOR RIGHT JOIN PRODUCT ON VENDOR.V_CODE=PRODUCT.V_CODE' returns:",
+    "options": [
+      "All vendors, including those without products",
+      "All products, including those that do not have a matching vendor (vendor cols NULL)",
+      "Only the matching vendor-product pairs",
+      "All vendors and all products with no matching restriction"
+    ],
+    "answer": 1,
+    "explanation": "RIGHT JOIN keeps all rows from the RIGHT table (PRODUCT). Products without a matching vendor still appear, with NULL for the vendor columns.",
+    "slideRef": "Ch8 Slide 23"
+  },
+  {
+    "id": 1014,
+    "topic_group": "SQL Subqueries",
+    "topic": "NOT IN Subquery",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Which query lists vendors who do NOT supply any products?",
+    "options": [
+      "SELECT V_CODE, V_NAME FROM VENDOR WHERE V_CODE = (SELECT V_CODE FROM PRODUCT);",
+      "SELECT V_CODE, V_NAME FROM VENDOR WHERE V_CODE NOT IN (SELECT V_CODE FROM PRODUCT);",
+      "SELECT V_CODE, V_NAME FROM VENDOR WHERE V_CODE EXISTS (SELECT V_CODE FROM PRODUCT);",
+      "SELECT V_CODE, V_NAME FROM VENDOR EXCEPT PRODUCT;"
+    ],
+    "answer": 1,
+    "explanation": "NOT IN with a subquery returns rows where the value is not in the subquery's result list \u2014 exactly the 'vendors with no products' case.",
+    "slideRef": "Ch8 Slide 25"
+  },
+  {
+    "id": 1015,
+    "topic_group": "SQL Subqueries",
+    "topic": "Subquery in WHERE with AVG",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "'SELECT P_CODE, P_PRICE FROM PRODUCT WHERE P_PRICE >= (SELECT AVG(P_PRICE) FROM PRODUCT);' produces:",
+    "options": [
+      "All products with the minimum price",
+      "All products at or above the average product price",
+      "All products at or below the average product price",
+      "Only the single most expensive product"
+    ],
+    "answer": 1,
+    "explanation": "The subquery returns one number (the average). The outer WHERE filters for products at or above that average.",
+    "slideRef": "Ch8 Slide 26"
+  },
+  {
+    "id": 1016,
+    "topic_group": "SQL Subqueries",
+    "topic": "DELETE with Subquery",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'DELETE FROM PRODUCT WHERE V_CODE IN (SELECT V_CODE FROM VENDOR WHERE V_AREACODE='615');' does what?",
+    "options": [
+      "Deletes vendors with area code 615",
+      "Deletes products whose vendor has area code 615",
+      "Deletes everything in PRODUCT and VENDOR",
+      "Returns an error \u2014 DELETE cannot use subqueries"
+    ],
+    "answer": 1,
+    "explanation": "Subquery returns the V_CODE values of vendors in 615. The outer DELETE removes products whose V_CODE is in that list \u2014 vendors are NOT touched.",
+    "slideRef": "Ch8 Slide 28"
+  },
+  {
+    "id": 1017,
+    "topic_group": "SQL Subqueries",
+    "topic": "HAVING with Subquery",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What does 'SELECT P_CODE, SUM(LINE_UNITS) FROM LINE GROUP BY P_CODE HAVING SUM(LINE_UNITS) > (SELECT AVG(LINE_UNITS) FROM LINE);' return?",
+    "options": [
+      "All products and their total quantity sold",
+      "Products where the total quantity sold for that product exceeds the overall average per-line quantity",
+      "Products where the average quantity sold per line exceeds the global average",
+      "All lines where LINE_UNITS exceeds the average"
+    ],
+    "answer": 1,
+    "explanation": "The query groups by P_CODE and keeps only those products whose SUM (total) of LINE_UNITS is greater than the AVG of LINE_UNITS across all lines.",
+    "slideRef": "Ch8 Slide 34"
+  },
+  {
+    "id": 1018,
+    "topic_group": "SQL Subqueries",
+    "topic": "ALL operator",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'WHERE P_QOH*P_PRICE >= ALL (SELECT P_QOH*P_PRICE FROM product WHERE V_CODE IN (SELECT V_CODE FROM vendor WHERE V_STATE='FL'))' returns products whose value:",
+    "options": [
+      "Is greater than or equal to AT LEAST ONE product from a Florida vendor",
+      "Is greater than or equal to EVERY product from Florida vendors",
+      "Is exactly equal to a Florida product's value",
+      "Is less than every Florida product's value"
+    ],
+    "answer": 1,
+    "explanation": ">= ALL means greater than or equal to every value in the list \u2014 i.e., greater than or equal to the maximum.",
+    "slideRef": "Ch8 Slide 37"
+  },
+  {
+    "id": 1019,
+    "topic_group": "SQL Subqueries",
+    "topic": "Inline Subquery in SELECT",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'SELECT P_CODE, P_PRICE, (SELECT AVG(P_PRICE) FROM PRODUCT) AS AVGPRICE, P_PRICE - (SELECT AVG(P_PRICE) FROM PRODUCT) AS DIFF FROM PRODUCT;' will:",
+    "options": [
+      "Show each product's code, price, the global average price, and the difference from the global average",
+      "Show only products priced above average",
+      "Throw a syntax error \u2014 subqueries are not allowed in SELECT lists",
+      "Return only one row containing the global average"
+    ],
+    "answer": 0,
+    "explanation": "An inline subquery in the SELECT list returns one value used per row. Each product row gets the same global average and a per-row difference.",
+    "slideRef": "Ch8 Slide 40"
+  },
+  {
+    "id": 1020,
+    "topic_group": "SQL Subqueries",
+    "topic": "Correlated Subquery",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'SELECT INV_NUMBER, P_CODE, LINE_UNITS FROM LINE LS WHERE LS.LINE_UNITS > (SELECT AVG(LINE_UNITS) FROM LINE LA WHERE LA.P_CODE=LS.P_CODE);' returns:",
+    "options": [
+      "Lines where units sold exceed the global average across all lines",
+      "Lines where units sold exceed the average for that SAME product",
+      "All lines, sorted by units sold",
+      "Only lines for the most-sold product"
+    ],
+    "answer": 1,
+    "explanation": "The inner subquery is correlated \u2014 it references LS.P_CODE from the outer query, so the average is computed PER-PRODUCT, not globally.",
+    "slideRef": "Ch8 Slide 44"
+  },
+  {
+    "id": 1021,
+    "topic_group": "SQL Subqueries",
+    "topic": "EXISTS",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'SELECT CUS_CODE, CUS_LNAME, CUS_FNAME FROM CUSTOMER WHERE EXISTS (SELECT CUS_CODE FROM invoice WHERE INVOICE.CUS_CODE=CUSTOMER.CUS_CODE)' returns:",
+    "options": [
+      "All customers, regardless of orders",
+      "Customers who have placed at least one order",
+      "Customers who have NOT placed any orders",
+      "Only the most recent customer"
+    ],
+    "answer": 1,
+    "explanation": "EXISTS is true when the correlated subquery returns at least one row. The subquery finds invoices for that customer; if any exist, the customer is included.",
+    "slideRef": "Ch8 Slide 45"
+  },
+  {
+    "id": 1022,
+    "topic_group": "SQL Functions",
+    "topic": "YEAR()",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which query lists all employees born in 1972?",
+    "options": [
+      "SELECT EMP_LNAME, EMP_FNAME FROM EMP WHERE EMP_DOB = '1972';",
+      "SELECT EMP_LNAME, EMP_FNAME FROM EMP WHERE YEAR(EMP_DOB) = 1972;",
+      "SELECT EMP_LNAME, EMP_FNAME FROM EMP WHERE EMP_DOB BETWEEN '1972' AND '1972';",
+      "SELECT EMP_LNAME, EMP_FNAME FROM EMP WHERE GETYEAR(EMP_DOB) == 1972;"
+    ],
+    "answer": 1,
+    "explanation": "MySQL YEAR(date) extracts the year from a date value. Comparing the date directly to a year string would fail.",
+    "slideRef": "Ch8 Slide 50"
+  },
+  {
+    "id": 1023,
+    "topic_group": "SQL Functions",
+    "topic": "MONTH() and DAY()",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which expression filters employees born in November?",
+    "options": [
+      "WHERE EMP_DOB = 'November'",
+      "WHERE MONTH(EMP_DOB) = 11",
+      "WHERE NOV(EMP_DOB) = TRUE",
+      "WHERE EMP_DOB LIKE '%-11-%'"
+    ],
+    "answer": 1,
+    "explanation": "MONTH(date) returns 1-12. November is 11. Similarly, DAY(date) returns the day-of-month.",
+    "slideRef": "Ch8 Slide 51"
+  },
+  {
+    "id": 1024,
+    "topic_group": "SQL Functions",
+    "topic": "DATE_ADD",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Which expression returns a date 2 years after P_INDATE in MySQL?",
+    "options": [
+      "P_INDATE + 2",
+      "DATE_ADD(P_INDATE, INTERVAL 2 YEAR)",
+      "ADD_DATE(P_INDATE, 2 YEARS)",
+      "P_INDATE.YEAR + 2"
+    ],
+    "answer": 1,
+    "explanation": "MySQL syntax: DATE_ADD(date, INTERVAL n unit). Unit can be YEAR, MONTH, DAY, etc.",
+    "slideRef": "Ch8 Slide 54"
+  },
+  {
+    "id": 1025,
+    "topic_group": "SQL Functions",
+    "topic": "ROUND",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "What does ROUND(P_PRICE, 1) return?",
+    "options": [
+      "P_PRICE rounded to the nearest whole number",
+      "P_PRICE rounded to one decimal place",
+      "P_PRICE shifted right by one digit",
+      "P_PRICE multiplied by 10"
+    ],
+    "answer": 1,
+    "explanation": "ROUND(value, n) rounds to n decimal places. ROUND(P_PRICE, 0) would round to the nearest whole number.",
+    "slideRef": "Ch8 Slide 56"
+  },
+  {
+    "id": 1026,
+    "topic_group": "SQL Functions",
+    "topic": "CEILING vs FLOOR",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What's the difference between CEILING(x) and FLOOR(x)?",
+    "options": [
+      "CEILING rounds to the nearest integer; FLOOR truncates",
+      "CEILING returns the smallest integer >= x; FLOOR returns the largest integer <= x",
+      "CEILING returns the largest integer; FLOOR returns the smallest",
+      "They are synonyms"
+    ],
+    "answer": 1,
+    "explanation": "CEILING(4.2) = 5, CEILING(-4.2) = -4. FLOOR(4.2) = 4, FLOOR(-4.2) = -5. Always rounds 'up' / 'down' on the number line, not toward zero.",
+    "slideRef": "Ch8 Slide 57"
+  },
+  {
+    "id": 1027,
+    "topic_group": "SQL Functions",
+    "topic": "SUBSTRING",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does SUBSTRING(EMP_PHONE, 1, 3) return?",
+    "options": [
+      "The last 3 characters of EMP_PHONE",
+      "The first 3 characters of EMP_PHONE",
+      "Characters 1 through 3 (inclusive), counting from the END",
+      "EMP_PHONE shifted right by 1"
+    ],
+    "answer": 1,
+    "explanation": "SUBSTRING(string, start, length) \u2014 start at position 1 (1-indexed), take 3 characters. So the first 3.",
+    "slideRef": "Ch8 Slide 60"
+  },
+  {
+    "id": 1028,
+    "topic_group": "SQL Functions",
+    "topic": "LENGTH",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "What does LENGTH(EMP_LNAME) return?",
+    "options": [
+      "The total number of employees",
+      "The number of characters in EMP_LNAME for that row",
+      "The longest last name in the table",
+      "A boolean of whether EMP_LNAME is non-null"
+    ],
+    "answer": 1,
+    "explanation": "LENGTH returns the number of characters in the string for each row.",
+    "slideRef": "Ch8 Slide 61"
+  },
+  {
+    "id": 1029,
+    "topic_group": "SQL Functions",
+    "topic": "CASE WHEN",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "A CASE WHEN ... ELSE ... END expression in SELECT is used to:",
+    "options": [
+      "Return different values based on which condition is met (similar to if/else if/else)",
+      "Define a new permanent column on the table",
+      "Cast a value to a different data type",
+      "Group rows by a calculated key"
+    ],
+    "answer": 0,
+    "explanation": "CASE evaluates conditions in order; the first matching WHEN returns its THEN value. ELSE provides a default if no WHEN matches.",
+    "slideRef": "Ch8 Slide 65"
+  },
+  {
+    "id": 1030,
+    "topic_group": "SQL Functions",
+    "topic": "CAST",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Which expression converts the text '-123.99' to a decimal number with 8 total digits and 2 after the decimal?",
+    "options": [
+      "TO_DECIMAL('-123.99', 8, 2)",
+      "PARSE('-123.99' AS DECIMAL(8,2))",
+      "CAST('-123.99' AS DECIMAL(8,2))",
+      "CONVERT_DEC('-123.99', 8, 2)"
+    ],
+    "answer": 2,
+    "explanation": "Standard SQL syntax is CAST(value AS type). MySQL also accepts CONVERT(value, type).",
+    "slideRef": "Ch8 Slide 64"
+  },
+  {
+    "id": 1031,
+    "topic_group": "SQL Functions",
+    "topic": "CONCAT",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does 'SELECT CONCAT(CONCAT(EMP_LNAME, ','), EMP_FNAME) AS NAME FROM EMP' produce?",
+    "options": [
+      "Two separate columns: last name and first name",
+      "A single NAME column like 'Smith,John' for each employee",
+      "An error because CONCAT does not exist in MySQL",
+      "Only the last name in uppercase"
+    ],
+    "answer": 1,
+    "explanation": "CONCAT joins strings. The nested CONCAT first appends ',' to the last name, then appends the first name \u2014 result like 'Smith,John'.",
+    "slideRef": "Ch8 Slide 58"
+  },
+  {
+    "id": 1032,
+    "topic_group": "Ch7 Basics",
+    "topic": "Alias with AS",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which is the correct way to give a computed column the alias 'TotalCost'?",
+    "options": [
+      "SELECT P_QTY * P_PRICE 'TotalCost' FROM PRODUCT;",
+      "SELECT P_QTY * P_PRICE AS TotalCost FROM PRODUCT;",
+      "SELECT TotalCost = P_QTY * P_PRICE FROM PRODUCT;",
+      "SELECT (P_QTY * P_PRICE).AS('TotalCost') FROM PRODUCT;"
+    ],
+    "answer": 1,
+    "explanation": "SQL syntax: <expression> AS <alias>. The AS keyword is sometimes optional but always works.",
+    "slideRef": "Ch7 Slide 20"
+  },
+  {
+    "id": 1033,
+    "topic_group": "Ch8 Joins",
+    "topic": "Table 8.1 Join Styles",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Per Table 8.1 (SQL Join Expression Styles), which two SQL expressions both produce a Cartesian product of T1 and T2?",
+    "options": [
+      "'FROM T1, T2' (old style) AND 'FROM T1 CROSS JOIN T2'",
+      "'FROM T1 NATURAL JOIN T2' AND 'FROM T1 JOIN T2 USING (C1)'",
+      "'FROM T1 JOIN T2 ON T1.C1=T2.C1' AND 'FROM T1, T2'",
+      "Only 'FROM T1 CROSS JOIN T2' produces a Cartesian product"
+    ],
+    "answer": 0,
+    "explanation": "Old-style 'FROM T1, T2' (without WHERE) produces a Cartesian product, which is the same as the explicit 'CROSS JOIN' syntax. Both are listed as CROSS in Table 8.1.",
+    "slideRef": "Ch8 Slide 13"
+  },
+  {
+    "id": 1034,
+    "topic_group": "Ch8 Joins",
+    "topic": "Old-style Inner Join",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Per Table 8.1, which 'old-style' SQL syntax is equivalent to 'SELECT * FROM T1 JOIN T2 ON T1.C1=T2.C1'?",
+    "options": [
+      "SELECT * FROM T1, T2 WHERE T1.C1=T2.C1",
+      "SELECT * FROM T1 NATURAL JOIN T2",
+      "SELECT * FROM T1 CROSS JOIN T2",
+      "SELECT * FROM T1 JOIN T2 USING (C1)"
+    ],
+    "answer": 0,
+    "explanation": "The old-style INNER JOIN uses comma-separated tables in FROM with the join condition in WHERE. Functionally identical to the modern JOIN ... ON syntax.",
+    "slideRef": "Ch8 Slide 13"
+  },
+  {
+    "id": 1035,
+    "topic_group": "Ch8 Joins",
+    "topic": "FULL OUTER JOIN",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Per Table 8.1, what does 'SELECT * FROM T1 FULL OUTER JOIN T2 ON T1.C1=T2.C1' return?",
+    "options": [
+      "Only the matching rows (inner join)",
+      "All rows from T1, with unmatched T2 columns as NULL",
+      "Rows with matching values AND all unmatched rows from BOTH tables (T1 and T2)",
+      "Only the unmatched rows from both tables"
+    ],
+    "answer": 2,
+    "explanation": "FULL OUTER JOIN returns matched rows + all unmatched rows from T1 + all unmatched rows from T2. NULLs fill in for missing values on either side.",
+    "slideRef": "Ch8 Slide 14"
+  },
+  {
+    "id": 1036,
+    "topic_group": "Ch8 Joins",
+    "topic": "Outer Join Direction",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Per Table 8.1, the LEFT OUTER JOIN of T1 and T2 includes:",
+    "options": [
+      "All rows from T2, even those with no match in T1",
+      "Matching rows AND all rows from T1 (the LEFT table) that have no match in T2",
+      "Only the rows where T1.C1 < T2.C1",
+      "Only the rows that fail the join condition"
+    ],
+    "answer": 1,
+    "explanation": "LEFT OUTER JOIN keeps every row from the LEFT table; unmatched right-side columns become NULL. Mirror of RIGHT OUTER JOIN.",
+    "slideRef": "Ch8 Slide 14"
+  },
+  {
+    "id": 1037,
+    "topic_group": "Ch8 Joins",
+    "topic": "CROSS JOIN syntax variants",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Per the slides, both 'SELECT INV_NUMBER, CUS_CODE FROM INVOICE CROSS JOIN LINE' and 'SELECT INV_NUMBER, CUS_CODE FROM INVOICE, LINE' produce:",
+    "options": [
+      "Only matching rows on a common key",
+      "The same result \u2014 a Cartesian product with only the named attributes",
+      "Different results \u2014 the comma syntax errors out",
+      "Only rows where INV_NUMBER appears in both tables"
+    ],
+    "answer": 1,
+    "explanation": "Both syntaxes produce the Cartesian product. The SELECT list controls which attributes appear; the JOIN syntax (CROSS JOIN vs comma) does not change the row set.",
+    "slideRef": "Ch8 Slide 16"
+  },
+  {
+    "id": 1038,
+    "topic_group": "Ch8 Joins",
+    "topic": "Multi-table NATURAL JOIN",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: 'FROM INVOICE NATURAL JOIN PRODUCT NATURAL JOIN LINE' is valid SQL that joins three tables on their shared column names automatically.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. NATURAL JOIN can be chained across multiple tables \u2014 each pairwise join uses the columns those two tables share by name.",
+    "slideRef": "Ch8 Slide 18"
+  },
+  {
+    "id": 1039,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "WHERE Subquery with Join",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Consider: SELECT DISTINCT CUS_CODE, CUS_LNAME FROM CUSTOMER JOIN INVOICE USING (CUS_CODE) JOIN LINE USING (INV_NUMBER) JOIN PRODUCT USING (P_CODE) WHERE P_CODE=(SELECT P_CODE FROM PRODUCT WHERE P_DESCRIPT='Claw hammer'). What does this return?",
+    "options": [
+      "All customers who have ordered the product whose description is 'Claw hammer'",
+      "All products called 'Claw hammer'",
+      "All customers whose name is 'Claw hammer'",
+      "An error \u2014 you can't use a subquery this way"
+    ],
+    "answer": 0,
+    "explanation": "Inner subquery returns the P_CODE for 'Claw hammer'. Outer query joins customers\u2192invoices\u2192lines\u2192products and filters to that P_CODE. DISTINCT removes duplicate customer rows.",
+    "slideRef": "Ch8 Slide 30"
+  },
+  {
+    "id": 1040,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "IN Subquery with LIKE",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "WHERE P_CODE IN (SELECT P_CODE FROM PRODUCT WHERE P_DESCRIPT LIKE '%hammer%') filters for:",
+    "options": [
+      "Rows whose P_CODE matches any P_CODE of a product whose description contains 'hammer'",
+      "Rows whose P_CODE equals 'hammer'",
+      "Rows where P_CODE is exactly the string '%hammer%'",
+      "Rows where P_CODE is NULL"
+    ],
+    "answer": 0,
+    "explanation": "Inner subquery returns all P_CODEs of products with 'hammer' in the description. Outer IN matches any row whose P_CODE is in that list.",
+    "slideRef": "Ch8 Slide 33"
+  },
+  {
+    "id": 1041,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "FROM Subquery",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "When can a subquery appear in the FROM clause?",
+    "options": [
+      "Never \u2014 subqueries can only appear in WHERE or HAVING",
+      "When the subquery returns a row set that the outer query treats like a table (often called an inline view)",
+      "Only when the subquery returns exactly one row",
+      "Only inside a UNION"
+    ],
+    "answer": 1,
+    "explanation": "FROM clauses can use a SELECT subquery as a virtual/derived table. The outer query treats the subquery's result like any other table.",
+    "slideRef": "Ch8 Slide 38"
+  },
+  {
+    "id": 1042,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Attribute List Subquery",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Consider: SELECT P_CODE, SUM(LINE_UNITS*LINE_PRICE) AS SALES, (SELECT COUNT(*) FROM EMP) AS ECOUNT FROM LINE GROUP BY P_CODE. What does the (SELECT COUNT(*) FROM EMP) part do?",
+    "options": [
+      "Counts the employees per product (correlated subquery)",
+      "Returns a single number (total employee count) that is repeated in every row of the result",
+      "Returns the number of distinct line items per product",
+      "Throws an error \u2014 subqueries cannot appear in the SELECT list"
+    ],
+    "answer": 1,
+    "explanation": "An inline subquery in the SELECT list runs once and returns a single value, which gets attached to every row of the outer query's result. Used here to compute total employee count for division.",
+    "slideRef": "Ch8 Slide 41"
+  },
+  {
+    "id": 1043,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Correlated EXISTS",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "SELECT V_CODE, V_NAME FROM VENDOR WHERE EXISTS (SELECT * FROM PRODUCT WHERE P_QOH<P_MIN*2 AND VENDOR.V_CODE=PRODUCT.V_CODE) returns:",
+    "options": [
+      "All vendors regardless of products",
+      "Vendors who have at least one product whose quantity-on-hand is less than double the minimum quantity",
+      "Products whose quantity-on-hand is less than double their minimum",
+      "Vendors who have no products"
+    ],
+    "answer": 1,
+    "explanation": "Correlated EXISTS: the inner query references VENDOR.V_CODE from the outer query. For each vendor, it checks whether at least one of their products has the low-stock condition.",
+    "slideRef": "Ch8 Slide 46"
+  },
+  {
+    "id": 1044,
+    "topic_group": "Ch8 Functions",
+    "topic": "DATE_FORMAT",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does DATE_FORMAT(P_INDATE, '%m/%d/%y') do in MySQL?",
+    "options": [
+      "Adds %m days to P_INDATE",
+      "Formats the date P_INDATE as a string in MM/DD/YY format",
+      "Returns NULL if P_INDATE is invalid",
+      "Returns the year of P_INDATE only"
+    ],
+    "answer": 1,
+    "explanation": "DATE_FORMAT(date, format) converts a date to a string per the format codes. %m=month, %d=day, %y=2-digit year. The literal '/' is preserved.",
+    "slideRef": "Ch8 Slide 49"
+  },
+  {
+    "id": 1045,
+    "topic_group": "Ch8 Functions",
+    "topic": "DAY function",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which expression filters employees born on the 14th day of any month?",
+    "options": [
+      "WHERE EMP_DOB = 14",
+      "WHERE DAY(EMP_DOB) = 14",
+      "WHERE EMP_DOB LIKE '14'",
+      "WHERE DATE_PART('day', EMP_DOB) = 14"
+    ],
+    "answer": 1,
+    "explanation": "DAY(date) extracts the day-of-month (1-31). DAY(EMP_DOB)=14 finds anyone born on the 14th of any month.",
+    "slideRef": "Ch8 Slide 52"
+  },
+  {
+    "id": 1046,
+    "topic_group": "Ch8 Functions",
+    "topic": "ADDDATE",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does ADDDATE(P_INDATE, 30) return in MySQL?",
+    "options": [
+      "P_INDATE plus 30 days",
+      "P_INDATE plus 30 months",
+      "The 30th day of P_INDATE's month",
+      "An error \u2014 ADDDATE requires INTERVAL syntax"
+    ],
+    "answer": 0,
+    "explanation": "ADDDATE(date, n) adds n days by default. Equivalent to DATE_ADD(date, INTERVAL n DAY). Used here to find the date 30 days after stocking.",
+    "slideRef": "Ch8 Slide 53"
+  },
+  {
+    "id": 1047,
+    "topic_group": "Ch8 Functions",
+    "topic": "LAST_DAY",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "WHERE EMP_HIRE_DATE >= DATE_ADD(LAST_DAY(EMP_HIRE_DATE), INTERVAL -7 DAY) filters for employees hired:",
+    "options": [
+      "On the last day of any month",
+      "Within the last 7 days of the month they were hired in",
+      "Before the 7th of any month",
+      "Exactly 7 days ago"
+    ],
+    "answer": 1,
+    "explanation": "LAST_DAY returns the final day of EMP_HIRE_DATE's month. Subtracting 7 days gives the start of the last week. Hires on or after that date fall within the last 7 days of their hiring month.",
+    "slideRef": "Ch8 Slide 55"
+  },
+  {
+    "id": 1048,
+    "topic_group": "Ch8 Functions",
+    "topic": "UPPER + CONCAT",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does UPPER(CONCAT(CONCAT(EMP_LNAME, ','), EMP_FNAME)) produce for an employee named Jane Smith?",
+    "options": [
+      "Smith,Jane",
+      "SMITH,JANE",
+      "smith,jane",
+      "Jane Smith"
+    ],
+    "answer": 1,
+    "explanation": "Inner CONCAT yields 'Smith,', second CONCAT appends 'Jane' to give 'Smith,Jane', UPPER converts to 'SMITH,JANE'.",
+    "slideRef": "Ch8 Slide 59"
+  },
+  {
+    "id": 1049,
+    "topic_group": "Ch8 Functions",
+    "topic": "CONVERT for type",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does CONVERT(P_PRICE, CHAR(8)) AS PRICE do in a SELECT?",
+    "options": [
+      "Rounds P_PRICE to 8 decimals",
+      "Converts P_PRICE to an 8-character string and aliases it as PRICE",
+      "Multiplies P_PRICE by 8",
+      "Returns the 8th character of P_PRICE"
+    ],
+    "answer": 1,
+    "explanation": "CONVERT(value, type) changes the data type. CHAR(8) means an 8-character string. Useful for formatting numbers/dates as text in output.",
+    "slideRef": "Ch8 Slide 63"
+  }
+]

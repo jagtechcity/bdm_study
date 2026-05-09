@@ -1,0 +1,1228 @@
+[
+  {
+    "id": 1,
+    "topic_group": "Ch7 SQL Basics",
+    "topic": "SQL Categories",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "SQL function commands fall into two main categories. Which two?",
+    "options": [
+      "DDL (Data Definition Language) and DML (Data Manipulation Language)",
+      "DCL (Data Control Language) and DTL (Data Transaction Language)",
+      "DQL (Data Query Language) and DML (Data Manipulation Language)",
+      "DDL (Data Definition Language) and DCL (Data Control Language)"
+    ],
+    "answer": 0,
+    "explanation": "SQL is divided into Data Definition Language (DDL \u2014 for creating/altering structure) and Data Manipulation Language (DML \u2014 for inserting/updating/deleting/selecting data).",
+    "slideRef": "Ch7 Slide 3"
+  },
+  {
+    "id": 2,
+    "topic_group": "Ch7 SQL Basics",
+    "topic": "SQL Characteristics",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "SQL is best described as which type of language?",
+    "options": [
+      "A procedural language with thousands of commands",
+      "A nonprocedural language with a basic command vocabulary of fewer than 100 words",
+      "A low-level language requiring explicit memory management",
+      "An object-oriented language with classes and inheritance"
+    ],
+    "answer": 1,
+    "explanation": "SQL is a nonprocedural language \u2014 you specify WHAT you want, not HOW to get it. Its core vocabulary is under 100 words.",
+    "slideRef": "Ch7 Slide 3"
+  },
+  {
+    "id": 3,
+    "topic_group": "Ch7 SQL Basics",
+    "topic": "SQL Dialects",
+    "difficulty": 1,
+    "type": "tf",
+    "prompt": "True or False: There are major, fundamental differences between SQL dialects (MySQL, Oracle, SQL Server, etc.)",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. The slides specifically state differences in SQL dialects are MINOR. The core SQL language is largely portable.",
+    "slideRef": "Ch7 Slide 3"
+  },
+  {
+    "id": 4,
+    "topic_group": "Ch7 SQL Basics",
+    "topic": "Aliases",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "What is a column or table alias used for in SQL?",
+    "options": [
+      "To permanently rename a column in the database",
+      "To create a new index on a column",
+      "An alternate name given to a column or table to improve readability of the query",
+      "To enforce a unique constraint on a column"
+    ],
+    "answer": 2,
+    "explanation": "An alias is just an alternate name \u2014 it improves readability but does not change the underlying schema. Defined with AS keyword.",
+    "slideRef": "Ch7 Slide 20"
+  },
+  {
+    "id": 5,
+    "topic_group": "Ch7 SQL Basics",
+    "topic": "Computed Columns",
+    "difficulty": 2,
+    "type": "tf",
+    "prompt": "True or False: A computed column, an alias, and date arithmetic can all be used together in a single SQL query.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. SQL accepts any valid expression in computed columns and these can be combined freely with aliases and date arithmetic in one query.",
+    "slideRef": "Ch7 Slide 20"
+  },
+  {
+    "id": 6,
+    "topic_group": "Ch8 Joins",
+    "topic": "Join Types Overview",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Which type of join returns rows ONLY when matching values exist in both tables?",
+    "options": [
+      "Outer join",
+      "Cross join",
+      "Inner join",
+      "Self join"
+    ],
+    "answer": 2,
+    "explanation": "Inner join returns only rows that meet the join criterion. Outer joins also include unmatched rows; cross join returns the Cartesian product.",
+    "slideRef": "Ch8 Slide 12"
+  },
+  {
+    "id": 7,
+    "topic_group": "Ch8 Joins",
+    "topic": "Natural Join",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What does a NATURAL JOIN do?",
+    "options": [
+      "Returns the Cartesian product of the two tables",
+      "Joins on all columns that share the same name in both tables, automatically",
+      "Joins only when the user specifies which columns to match",
+      "Returns all rows from both tables regardless of matches"
+    ],
+    "answer": 1,
+    "explanation": "NATURAL JOIN automatically joins tables based on columns with identical names \u2014 no ON or USING clause needed.",
+    "slideRef": "Ch8 Slide 17"
+  },
+  {
+    "id": 8,
+    "topic_group": "Ch8 Joins",
+    "topic": "Cross Join Math",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "If the INVOICE table has 8 rows and the LINE table has 18 rows, how many rows does 'SELECT * FROM invoice CROSS JOIN line' return?",
+    "options": [
+      "26 (8 + 18)",
+      "18 (the larger table)",
+      "144 (8 \u00d7 18)",
+      "It depends on matching key values"
+    ],
+    "answer": 2,
+    "explanation": "A CROSS JOIN produces the Cartesian product: every row of one table paired with every row of the other. 8 \u00d7 18 = 144.",
+    "slideRef": "Ch8 Slide 15"
+  },
+  {
+    "id": 9,
+    "topic_group": "Ch8 Joins",
+    "topic": "Outer Join Direction",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "'SELECT P_CODE, VENDOR.V_CODE, V_NAME FROM VENDOR LEFT JOIN PRODUCT ON VENDOR.V_CODE=PRODUCT.V_CODE' will include which rows?",
+    "options": [
+      "Only vendors that have matching products",
+      "All vendors, including those with no matching products (those products show NULL)",
+      "Only products that have matching vendors",
+      "All products and all vendors regardless of matches"
+    ],
+    "answer": 1,
+    "explanation": "LEFT JOIN keeps ALL rows from the left table (VENDOR). Vendors without matching products still appear, with NULLs for the product columns.",
+    "slideRef": "Ch8 Slide 22"
+  },
+  {
+    "id": 10,
+    "topic_group": "Ch8 Joins",
+    "topic": "JOIN ON vs USING",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "When should you use JOIN ON instead of JOIN USING?",
+    "options": [
+      "JOIN ON is required when joining tables that share no common attribute names",
+      "JOIN ON is faster than JOIN USING",
+      "JOIN ON works only for inner joins",
+      "There is no functional difference; they are interchangeable"
+    ],
+    "answer": 0,
+    "explanation": "JOIN USING requires that columns share the same name in both tables. JOIN ON allows you to specify any join condition, including across columns with different names.",
+    "slideRef": "Ch8 Slide 20"
+  },
+  {
+    "id": 11,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Subquery Definition",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which best describes a subquery?",
+    "options": [
+      "A query that runs in parallel with the main query",
+      "A query inside another query, normally expressed inside parentheses",
+      "A backup query that runs only if the main query fails",
+      "A query that bypasses the WHERE clause"
+    ],
+    "answer": 1,
+    "explanation": "A subquery is a SELECT statement nested inside another query, typically wrapped in parentheses.",
+    "slideRef": "Ch8 Slide 27"
+  },
+  {
+    "id": 12,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Subquery Execution Order",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "In a nested query, which executes first \u2014 the inner query or the outer query?",
+    "options": [
+      "The outer query executes first, then passes results to the inner query",
+      "The inner query executes first, and its output is used as input to the outer query",
+      "Both execute simultaneously and results are merged",
+      "It depends on whether indexes are present"
+    ],
+    "answer": 1,
+    "explanation": "The inner query runs first; its result is used as input to the outer query.",
+    "slideRef": "Ch8 Slide 27"
+  },
+  {
+    "id": 13,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Subquery Return Types",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "A subquery can return which of the following? (Select all that apply)",
+    "options": [
+      "A single value (one column, one row)",
+      "A list of values (one column, multiple rows)",
+      "A virtual table (multicolumn, multirow)",
+      "No value (the outer query may error or return null)",
+      "A stored procedure handle",
+      "A trigger reference"
+    ],
+    "answer": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "explanation": "Subqueries return data \u2014 single value, list, virtual table, or no value. They never return procedure handles or triggers.",
+    "slideRef": "Ch8 Slide 24"
+  },
+  {
+    "id": 14,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "WHERE Subquery Restriction",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: A subquery on the right side of a WHERE = comparison can return any number of rows.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. A subquery used with a single-value comparison (like =) must return exactly one value, or the DBMS generates an error. For multiple values, use IN, ANY, or ALL.",
+    "slideRef": "Ch8 Slide 29"
+  },
+  {
+    "id": 15,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "ANY vs ALL",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What is the difference between the ALL and ANY operators?",
+    "options": [
+      "ALL compares to every value in the list (must satisfy all); ANY needs only one match",
+      "ANY compares to every value in the list; ALL needs only one match",
+      "They are synonyms with no functional difference",
+      "ALL is for numbers; ANY is for text"
+    ],
+    "answer": 0,
+    "explanation": "ALL requires the comparison to be true for EVERY value returned by the subquery. ANY requires it to be true for at least ONE value.",
+    "slideRef": "Ch8 Slide 36"
+  },
+  {
+    "id": 16,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Correlated Subquery",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What makes a subquery 'correlated'?",
+    "options": [
+      "It executes only once and the result is cached",
+      "Its inner query references a column from the outer query, executing once per outer row",
+      "It uses correlation coefficients in statistical functions",
+      "It runs in parallel with the outer query"
+    ],
+    "answer": 1,
+    "explanation": "A correlated subquery references the outer query's columns and runs once for EACH row of the outer query \u2014 like a nested loop.",
+    "slideRef": "Ch8 Slide 43"
+  },
+  {
+    "id": 17,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "HAVING vs WHERE",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What is the role of the HAVING clause?",
+    "options": [
+      "Filters individual rows before grouping",
+      "Restricts the output of a GROUP BY query by applying conditions to grouped rows",
+      "Sorts the result set",
+      "Joins two tables together"
+    ],
+    "answer": 1,
+    "explanation": "WHERE filters rows before grouping; HAVING filters AFTER grouping (often using aggregate functions like SUM or AVG).",
+    "slideRef": "Ch8 Slide 32"
+  },
+  {
+    "id": 18,
+    "topic_group": "Ch8 Subqueries",
+    "topic": "Inline Subquery",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: A column alias defined in the same attribute list can be used in another computation in that same attribute list.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. The slide explicitly states: a column alias cannot be used in attribute list computation if the alias is defined in the same attribute list.",
+    "slideRef": "Ch8 Slide 39"
+  },
+  {
+    "id": 19,
+    "topic_group": "Ch8 Functions",
+    "topic": "Function Use",
+    "difficulty": 1,
+    "type": "tf",
+    "prompt": "True or False: SQL functions may appear anywhere in an SQL statement where a value or attribute can be used.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. Functions can go in SELECT, WHERE, ORDER BY, etc. \u2014 anywhere a value/attribute is valid.",
+    "slideRef": "Ch8 Slide 47"
+  },
+  {
+    "id": 20,
+    "topic_group": "Ch8 Functions",
+    "topic": "Conversion Functions",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Which two MySQL functions take a value of one data type and convert it to another data type?",
+    "options": [
+      "PARSE and FORMAT",
+      "CAST and CONVERT",
+      "TYPE and CHANGE",
+      "TRANSFORM and CHANGE"
+    ],
+    "answer": 1,
+    "explanation": "MySQL uses CAST and CONVERT for data type conversion. They are essentially equivalent in function.",
+    "slideRef": "Ch8 Slide 62"
+  },
+  {
+    "id": 21,
+    "topic_group": "Ch10 Transactions",
+    "topic": "Transaction Definition",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "Which best describes a database transaction?",
+    "options": [
+      "A single SQL command executed against the database",
+      "A logical unit of work that must be entirely completed or aborted",
+      "A backup of database state at a specific point in time",
+      "A communication between the database and a remote client"
+    ],
+    "answer": 1,
+    "explanation": "A transaction is a logical unit of work \u2014 all-or-nothing. Either every step succeeds (commit) or all are undone (rollback).",
+    "slideRef": "Ch10 Slide 6"
+  },
+  {
+    "id": 22,
+    "topic_group": "Ch10 Transactions",
+    "topic": "Consistent State",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "A successful transaction takes the database from one consistent state to another. What does 'consistent state' mean?",
+    "options": [
+      "All users see the same data at the same time",
+      "All data integrity constraints are satisfied",
+      "The database is locked and cannot be modified",
+      "All transactions are running simultaneously"
+    ],
+    "answer": 1,
+    "explanation": "Consistent = all integrity constraints (PKs, FKs, unique, check, etc.) are satisfied.",
+    "slideRef": "Ch10 Slide 6"
+  },
+  {
+    "id": 23,
+    "topic_group": "Ch10 Transactions",
+    "topic": "Concurrent Transactions",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "What are 'concurrent transactions'?",
+    "options": [
+      "Transactions that run one after another in strict order",
+      "Transactions that take place at the same time",
+      "Transactions that access the same data item",
+      "Transactions that always succeed together"
+    ],
+    "answer": 1,
+    "explanation": "Concurrent transactions are those executing simultaneously. Managing them is called concurrency control.",
+    "slideRef": "Ch10 Slide 7"
+  },
+  {
+    "id": 24,
+    "topic_group": "Ch10 Transactions",
+    "topic": "SQL Transaction Statements",
+    "difficulty": 1,
+    "type": "multi-select",
+    "prompt": "Which statements provide SQL transaction support per the ANSI standard? (Select all that apply)",
+    "options": [
+      "COMMIT",
+      "ROLLBACK",
+      "SAVEPOINT",
+      "TRANSACTION_END",
+      "ABORT"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explanation": "ANSI defines two main statements: COMMIT (make changes permanent) and ROLLBACK (undo changes). The slides emphasize these two.",
+    "slideRef": "Ch10 Slide 14"
+  },
+  {
+    "id": 25,
+    "topic_group": "Ch10 Transactions",
+    "topic": "Transaction Termination",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "A transaction sequence continues until which of the following occurs? (Select all that apply)",
+    "options": [
+      "A COMMIT statement is reached",
+      "A ROLLBACK statement is reached",
+      "The end of the program is reached",
+      "The program is abnormally terminated",
+      "An hour has passed since the transaction started",
+      "Another user logs into the database"
+    ],
+    "answer": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "explanation": "Transactions end on COMMIT, ROLLBACK, normal program end, or abnormal termination. There is no automatic time-based end.",
+    "slideRef": "Ch10 Slide 14"
+  },
+  {
+    "id": 26,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Concurrency Control Goal",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What is the primary objective of concurrency control?",
+    "options": [
+      "To maximize the number of simultaneous transactions",
+      "To ensure serializability of transactions in a multiuser database environment",
+      "To prevent users from logging in at the same time",
+      "To minimize disk I/O"
+    ],
+    "answer": 1,
+    "explanation": "The goal is serializability \u2014 making concurrent execution produce the same result as some serial (one-at-a-time) execution.",
+    "slideRef": "Ch10 Slide 15"
+  },
+  {
+    "id": 27,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Three Concurrency Problems",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Which of the following are recognized concurrency control problems? (Select all that apply)",
+    "options": [
+      "Lost updates",
+      "Uncommitted data",
+      "Inconsistent retrievals",
+      "Network packet loss",
+      "Disk fragmentation",
+      "Cache invalidation"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "The three classic concurrency problems are lost updates, uncommitted data (dirty reads), and inconsistent retrievals.",
+    "slideRef": "Ch10 Slide 16"
+  },
+  {
+    "id": 28,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Lost Update",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Which scenario describes a LOST UPDATE problem?",
+    "options": [
+      "T1 reads data that T2 modified but later rolled back",
+      "Two transactions read the same data and both update it; one update overwrites the other",
+      "T1 reads the same row twice and gets different values",
+      "T2 reads data while T1 is still in progress"
+    ],
+    "answer": 1,
+    "explanation": "Lost update: two transactions both update based on the original value; the second update overwrites the first, so the first is 'lost'.",
+    "slideRef": "Ch10 Slide 22"
+  },
+  {
+    "id": 29,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Uncommitted Data",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Which scenario describes the UNCOMMITTED DATA problem (also called 'dirty read')?",
+    "options": [
+      "Two transactions update the same data, losing one update",
+      "T1 updates data, T2 reads it, then T1 rolls back \u2014 T2 has read invalid data",
+      "T1 reads the same data twice and gets different results",
+      "T1 cannot proceed because T2 holds a lock"
+    ],
+    "answer": 1,
+    "explanation": "Uncommitted data / dirty read: T2 reads data modified by T1 before T1 commits. If T1 then rolls back, T2's read was based on data that 'never existed'.",
+    "slideRef": "Ch10 Slide 23"
+  },
+  {
+    "id": 30,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Inconsistent Retrieval",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Which scenario describes the INCONSISTENT RETRIEVAL problem?",
+    "options": [
+      "T1 calculates a total over a set of rows while T2 simultaneously updates some of those rows, producing a sum that mixes old and new values",
+      "T1 and T2 update the same row, losing one update",
+      "T1 reads data that T2 has not yet committed",
+      "Two transactions deadlock waiting on each other"
+    ],
+    "answer": 0,
+    "explanation": "Inconsistent retrieval: T1 reads/aggregates a set of values while T2 modifies some of them mid-read, so T1's result mixes pre- and post-update values.",
+    "slideRef": "Ch10 Slide 25"
+  },
+  {
+    "id": 31,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Confusion: Three Problems",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Transaction T1 reads X, then T2 updates X and commits, then T1 reads X again and gets a different value. This is most directly an example of what?",
+    "options": [
+      "Lost update",
+      "Uncommitted data (dirty read)",
+      "Inconsistent retrieval (or nonrepeatable read)",
+      "Deadlock"
+    ],
+    "answer": 2,
+    "explanation": "Reading the same data twice and getting different results within one transaction is inconsistent retrieval \u2014 the data the transaction sees is not internally consistent.",
+    "slideRef": "Ch10 Slide 25"
+  },
+  {
+    "id": 32,
+    "topic_group": "Ch10 Scheduler",
+    "topic": "Scheduler Role",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What is the role of the Scheduler in a DBMS?",
+    "options": [
+      "Determines when users may log in",
+      "Establishes the order in which operations within concurrent transactions execute, interleaving them to ensure serializability and isolation",
+      "Schedules database backups",
+      "Decides when indexes should be rebuilt"
+    ],
+    "answer": 1,
+    "explanation": "The Scheduler interleaves operations from concurrent transactions to ensure the result is serializable, using locking or time stamping algorithms.",
+    "slideRef": "Ch10 Slide 28"
+  },
+  {
+    "id": 33,
+    "topic_group": "Ch10 Scheduler",
+    "topic": "Scheduler Algorithms",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "The Scheduler bases its actions on which concurrency control algorithms? (Select all that apply)",
+    "options": [
+      "Locking",
+      "Time stamping",
+      "Round-robin scheduling",
+      "First-in-first-out queueing",
+      "Random selection"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explanation": "The two main families are locking and time stamping. (Optimistic methods are a third approach but the Scheduler slide specifically names locking and time stamping.)",
+    "slideRef": "Ch10 Slide 28"
+  },
+  {
+    "id": 34,
+    "topic_group": "Ch10 Locking",
+    "topic": "Lock Definition",
+    "difficulty": 1,
+    "type": "mc",
+    "prompt": "What does a lock guarantee?",
+    "options": [
+      "That data is encrypted on disk",
+      "Exclusive use of a data item to a current transaction (preventing another transaction from reading inconsistent data)",
+      "That a transaction will commit successfully",
+      "Faster query performance"
+    ],
+    "answer": 1,
+    "explanation": "A lock gives the holding transaction exclusive (or shared) access to data, preventing other transactions from interfering.",
+    "slideRef": "Ch10 Slide 34"
+  },
+  {
+    "id": 35,
+    "topic_group": "Ch10 Locking",
+    "topic": "Pessimistic Locking",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What is 'pessimistic locking' based on?",
+    "options": [
+      "The assumption that conflicts between transactions are rare",
+      "The assumption that conflict between transactions is likely",
+      "The use of timestamps instead of locks",
+      "Random selection of transactions to abort"
+    ],
+    "answer": 1,
+    "explanation": "Pessimistic = assumes conflicts WILL happen, so locks early and aggressively. Optimistic methods make the opposite assumption.",
+    "slideRef": "Ch10 Slide 34"
+  },
+  {
+    "id": 36,
+    "topic_group": "Ch10 Locking",
+    "topic": "Lock Manager",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "Who is responsible for assigning and policing locks used by transactions?",
+    "options": [
+      "The application programmer",
+      "The Scheduler",
+      "The Lock Manager",
+      "The query optimizer"
+    ],
+    "answer": 2,
+    "explanation": "The Lock Manager is the dedicated DBMS component for assigning and policing locks.",
+    "slideRef": "Ch10 Slide 34"
+  },
+  {
+    "id": 37,
+    "topic_group": "Ch10 Locking",
+    "topic": "Lock Granularity Levels",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Which of the following are recognized levels of lock granularity? (Select all that apply)",
+    "options": [
+      "Database-level lock",
+      "Table-level lock",
+      "Page-level lock",
+      "Row-level lock",
+      "Field-level lock",
+      "Disk-level lock",
+      "User-level lock"
+    ],
+    "answer": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "explanation": "The five levels per Slide 35: database, table, page, row, field. Disk-level and user-level are not standard granularity terms.",
+    "slideRef": "Ch10 Slide 35"
+  },
+  {
+    "id": 38,
+    "topic_group": "Ch10 Locking",
+    "topic": "Page-Level Lock",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What does a page-level lock actually lock?",
+    "options": [
+      "A single row of a table",
+      "An entire disk page (a directly addressable section of disk, typically 4K, 8K, or 16K)",
+      "A whole table",
+      "A specific column across all rows"
+    ],
+    "answer": 1,
+    "explanation": "A page-level lock locks a whole disk page (a fixed-size block, e.g. 4K). A table can span many pages, and a page can contain many rows.",
+    "slideRef": "Ch10 Slide 41"
+  },
+  {
+    "id": 39,
+    "topic_group": "Ch10 Locking",
+    "topic": "Page Size Behavior",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: To write only 73 bytes to a 4K page, the DBMS reads only those 73 bytes from disk.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. The entire 4K page must be read from disk, updated in memory, and written back to disk \u2014 even for a tiny change.",
+    "slideRef": "Ch10 Slide 41"
+  },
+  {
+    "id": 40,
+    "topic_group": "Ch10 Locking",
+    "topic": "Lock Problems",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Which problems can result from using locks? (Select all that apply)",
+    "options": [
+      "The resulting transaction schedule might not be serializable",
+      "Schedules might create deadlocks",
+      "Transactions may run too fast",
+      "Indexes may become corrupted",
+      "Data may be encrypted unintentionally"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explanation": "Two main problems with locking: schedules may still not be serializable (without proper protocol like 2PL), and deadlocks can occur.",
+    "slideRef": "Ch10 Slide 46"
+  },
+  {
+    "id": 41,
+    "topic_group": "Ch10 2PL",
+    "topic": "2PL Phases",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What are the two phases of Two-Phase Locking (2PL)?",
+    "options": [
+      "Lock phase and Commit phase",
+      "Read phase and Write phase",
+      "Growing phase (acquire locks, no releases) and Shrinking phase (release locks, no new acquires)",
+      "Setup phase and Cleanup phase"
+    ],
+    "answer": 2,
+    "explanation": "Growing phase: acquire locks, never release. Shrinking phase: release locks, never acquire new ones. The 'point' between is the locked point.",
+    "slideRef": "Ch10 Slide 47"
+  },
+  {
+    "id": 42,
+    "topic_group": "Ch10 2PL",
+    "topic": "2PL Guarantees",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What does Two-Phase Locking guarantee, and what does it NOT guarantee?",
+    "options": [
+      "Guarantees serializability AND prevents deadlocks",
+      "Guarantees serializability but does NOT prevent deadlocks",
+      "Prevents deadlocks but does not guarantee serializability",
+      "Neither \u2014 it only improves performance"
+    ],
+    "answer": 1,
+    "explanation": "Critical exam point: 2PL guarantees serializability but does NOT prevent deadlocks. Deadlock handling needs separate techniques.",
+    "slideRef": "Ch10 Slide 47"
+  },
+  {
+    "id": 43,
+    "topic_group": "Ch10 2PL",
+    "topic": "2PL Rules",
+    "difficulty": 3,
+    "type": "multi-select",
+    "prompt": "Which are governing rules of Two-Phase Locking? (Select all that apply)",
+    "options": [
+      "Two transactions cannot have conflicting locks",
+      "No unlock operation can precede a lock operation in the same transaction",
+      "No data are affected until all locks are obtained (until the transaction reaches its locked point)",
+      "Every transaction must commit within 60 seconds",
+      "Read locks are always shared between transactions"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "Three governing rules: no conflicting locks, unlocks cannot precede locks in a transaction, and no data is affected until all locks are obtained.",
+    "slideRef": "Ch10 Slide 48"
+  },
+  {
+    "id": 44,
+    "topic_group": "Ch10 Deadlocks",
+    "topic": "Deadlock Definition",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What is a deadlock (also called 'deadly embrace')?",
+    "options": [
+      "A transaction that takes too long to complete",
+      "When two transactions wait indefinitely for each other to unlock data",
+      "When a transaction crashes and corrupts data",
+      "When a lock manager fails"
+    ],
+    "answer": 1,
+    "explanation": "Deadlock: T1 waits for T2's lock, T2 waits for T1's lock \u2014 neither can proceed. Also called 'deadly embrace'.",
+    "slideRef": "Ch10 Slide 50"
+  },
+  {
+    "id": 45,
+    "topic_group": "Ch10 Deadlocks",
+    "topic": "Deadlock Conditions",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: A deadlock condition can exist among shared (read) locks alone.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. Deadlock requires at least one transaction wanting an EXCLUSIVE lock. Shared locks alone cannot deadlock.",
+    "slideRef": "Ch10 Slide 50"
+  },
+  {
+    "id": 46,
+    "topic_group": "Ch10 Deadlocks",
+    "topic": "Deadlock Control Methods",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Which are recognized deadlock control techniques? (Select all that apply)",
+    "options": [
+      "Deadlock prevention",
+      "Deadlock detection",
+      "Deadlock avoidance",
+      "Deadlock encryption",
+      "Deadlock acceleration"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "Three techniques: prevention (don't let it happen), detection (find it then abort one), avoidance (analyze before granting locks).",
+    "slideRef": "Ch10 Slide 53"
+  },
+  {
+    "id": 47,
+    "topic_group": "Ch10 TimeStamping",
+    "topic": "Time Stamp Properties",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Which properties must time stamps in time stamping concurrency control have? (Select all that apply)",
+    "options": [
+      "Uniqueness \u2014 no two transactions share the same time stamp value",
+      "Monotonicity \u2014 time stamp values always increase",
+      "Reversibility \u2014 the time stamp can be rolled back",
+      "Compressibility \u2014 time stamps can be reduced in size",
+      "Predictability \u2014 time stamps follow a fixed pattern"
+    ],
+    "answer": [
+      0,
+      1
+    ],
+    "explanation": "Two key properties: uniqueness (no duplicates) and monotonicity (always increasing). These guarantee a global ordering of transactions.",
+    "slideRef": "Ch10 Slide 54"
+  },
+  {
+    "id": 48,
+    "topic_group": "Ch10 TimeStamping",
+    "topic": "Time Stamping Disadvantages",
+    "difficulty": 3,
+    "type": "multi-select",
+    "prompt": "Which are disadvantages of time stamping? (Select all that apply)",
+    "options": [
+      "Each value stored requires two additional time-stamp fields (last read, last update)",
+      "Increases memory needs",
+      "Increases the database's processing overhead",
+      "Demands many system resources because transactions may need to be stopped, rescheduled, and restamped",
+      "Does not work in single-user systems",
+      "Cannot detect deadlocks"
+    ],
+    "answer": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "explanation": "Four disadvantages per Slide 55: extra fields per value, memory cost, processing overhead, and high resource demand from restamping.",
+    "slideRef": "Ch10 Slide 55"
+  },
+  {
+    "id": 49,
+    "topic_group": "Ch10 TimeStamping",
+    "topic": "Wait/Die Scheme",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Under the WAIT/DIE scheme, what happens when an OLDER transaction requests a lock held by a younger one?",
+    "options": [
+      "The older transaction dies (rolls back) and is rescheduled",
+      "The older transaction waits for the younger one to complete and release its locks",
+      "The younger transaction is killed immediately",
+      "Both transactions roll back simultaneously"
+    ],
+    "answer": 1,
+    "explanation": "Wait/Die: OLDER transaction WAITS. If the requester is YOUNGER, it DIES (rolls back, restamped). The older one is given priority by waiting for it.",
+    "slideRef": "Ch10 Slide 57"
+  },
+  {
+    "id": 50,
+    "topic_group": "Ch10 TimeStamping",
+    "topic": "Wait/Die vs Wound/Wait",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What's the key behavioral difference between Wait/Die and Wound/Wait?",
+    "options": [
+      "Wait/Die rolls back the requester if it's younger; Wound/Wait kills the holder if the requester is older",
+      "Wait/Die uses locks; Wound/Wait uses time stamps",
+      "There is no difference; they are synonyms",
+      "Wait/Die works only on reads; Wound/Wait works only on writes"
+    ],
+    "answer": 0,
+    "explanation": "Wait/Die: younger requester rolls back (dies). Wound/Wait: older requester 'wounds' the younger holder (forces it to roll back). Both are deadlock-free time-stamp schemes.",
+    "slideRef": "Ch10 Slide 56"
+  },
+  {
+    "id": 51,
+    "topic_group": "Ch10 Optimistic",
+    "topic": "Optimistic Approach",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "What core assumption does the optimistic approach to concurrency make?",
+    "options": [
+      "The majority of database operations DO conflict",
+      "The majority of database operations DO NOT conflict",
+      "All transactions need to acquire locks",
+      "Time stamps are required for correctness"
+    ],
+    "answer": 1,
+    "explanation": "Optimistic = assume conflicts are RARE. No locking, no time stamping during execution; validate at commit time.",
+    "slideRef": "Ch10 Slide 59"
+  },
+  {
+    "id": 52,
+    "topic_group": "Ch10 Optimistic",
+    "topic": "Optimistic Phases",
+    "difficulty": 3,
+    "type": "multi-select",
+    "prompt": "An optimistic transaction passes through which phases? (Select all that apply)",
+    "options": [
+      "Read",
+      "Validation",
+      "Write",
+      "Lock",
+      "Time stamp",
+      "Compile"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "Optimistic transactions move through Read \u2192 Validation \u2192 Write. No locks or time stamps required.",
+    "slideRef": "Ch10 Slide 59"
+  },
+  {
+    "id": 53,
+    "topic_group": "Ch10 Isolation",
+    "topic": "Isolation Levels",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Which read anomaly occurs when a transaction reads data that has not yet been committed?",
+    "options": [
+      "Phantom read",
+      "Nonrepeatable read",
+      "Dirty read",
+      "Lost read"
+    ],
+    "answer": 2,
+    "explanation": "Dirty read: transaction reads uncommitted data from another transaction. If that other transaction rolls back, the read was based on data that 'never existed'.",
+    "slideRef": "Ch10 Slide 61"
+  },
+  {
+    "id": 54,
+    "topic_group": "Ch10 Isolation",
+    "topic": "Nonrepeatable Read",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Which read anomaly occurs when a transaction reads a row at time t1 and reads it again at time t2, getting different values?",
+    "options": [
+      "Phantom read",
+      "Nonrepeatable read",
+      "Dirty read",
+      "Lost update"
+    ],
+    "answer": 1,
+    "explanation": "Nonrepeatable read: the SAME row read twice yields different values because another transaction updated/deleted it in between.",
+    "slideRef": "Ch10 Slide 61"
+  },
+  {
+    "id": 55,
+    "topic_group": "Ch10 Isolation",
+    "topic": "Phantom Read",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Which read anomaly occurs when a transaction runs a query at t1 and runs the same query at t2, getting ADDITIONAL rows?",
+    "options": [
+      "Phantom read",
+      "Nonrepeatable read",
+      "Dirty read",
+      "Lost update"
+    ],
+    "answer": 0,
+    "explanation": "Phantom read: a re-run of a query returns NEW rows that satisfy the predicate (because some other transaction inserted them).",
+    "slideRef": "Ch10 Slide 61"
+  },
+  {
+    "id": 56,
+    "topic_group": "Ch10 Isolation",
+    "topic": "Confusion: Read Anomalies",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "T1 runs SELECT WHERE category='X' (gets 5 rows). T2 inserts a new 'X' row and commits. T1 runs the same query (gets 6 rows). What anomaly is this?",
+    "options": [
+      "Dirty read",
+      "Nonrepeatable read",
+      "Phantom read",
+      "Lost update"
+    ],
+    "answer": 2,
+    "explanation": "Phantom read: NEW rows appear on re-execution. Nonrepeatable read = same row, different value. Phantom = new rows entirely.",
+    "slideRef": "Ch10 Slide 61"
+  },
+  {
+    "id": 57,
+    "topic_group": "Ch10 Isolation",
+    "topic": "Confusion: Pessimistic vs Optimistic",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "A system that lets transactions execute without restrictions and only validates at commit time follows which approach?",
+    "options": [
+      "Pessimistic locking",
+      "Two-phase locking",
+      "Optimistic concurrency control",
+      "Time stamping"
+    ],
+    "answer": 2,
+    "explanation": "Optimistic: no upfront locks/timestamps, validate at commit. Pessimistic locks early; 2PL is a locking protocol; time stamping orders by stamp.",
+    "slideRef": "Ch10 Slide 59"
+  },
+  {
+    "id": 58,
+    "topic_group": "Ch10 Isolation",
+    "topic": "Confusion: Lost Update vs Inconsistent Retrieval",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "What's the key difference between a LOST UPDATE and INCONSISTENT RETRIEVAL?",
+    "options": [
+      "Lost update is about WRITES (one write overwrites another); inconsistent retrieval is about READS (mixed old/new values during a read)",
+      "Lost update happens on commit; inconsistent retrieval happens on rollback",
+      "Lost update only affects single tables; inconsistent retrieval affects joined tables",
+      "They are the same problem with different names"
+    ],
+    "answer": 0,
+    "explanation": "Lost update = one transaction's WRITE clobbers another's. Inconsistent retrieval = a transaction's READ aggregates old + new values. Different operations, different problems.",
+    "slideRef": "Ch10 Slides 22, 25"
+  },
+  {
+    "id": 59,
+    "topic_group": "Ch10 Transactions",
+    "topic": "Transaction Properties",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Per the Transaction Properties slide, which of the following are recognized properties of a transaction? (Select all that apply)",
+    "options": [
+      "Atomicity",
+      "Consistency",
+      "Isolation",
+      "Durability",
+      "Serializability",
+      "Reliability"
+    ],
+    "answer": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "explanation": "The textbook lists Atomicity, Consistency, Isolation, Durability, AND Serializability as transaction properties (Coronel adds Serializability to the standard ACID set). Reliability is not on the list.",
+    "slideRef": "Ch10 Slide 13"
+  },
+  {
+    "id": 60,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Uncommitted Data Scenario",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "In the textbook's Uncommitted Data scenario (Table 10.5): T1 updates PROD_QOH from 35 to 135, T2 then reads PROD_QOH (sees 135), and T1 then ROLLBACKs. What is wrong with what T2 saw?",
+    "options": [
+      "T2 read a value that, after rollback, no longer exists in the database \u2014 a 'dirty read' of uncommitted data",
+      "T2's read overwrote T1's update",
+      "T2 read the value before T1 wrote it",
+      "There is nothing wrong; this scenario is correct"
+    ],
+    "answer": 0,
+    "explanation": "Dirty read: T2 read 135, but T1 then rolled back, meaning the actual committed value is still 35. T2's calculation is now based on data that 'never existed'.",
+    "slideRef": "Ch10 Slide 24"
+  },
+  {
+    "id": 61,
+    "topic_group": "Ch10 Concurrency",
+    "topic": "Inconsistent Retrieval Detail",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: In the inconsistent retrieval example, T1's calculated total can be wrong even though every individual operation in both T1 and T2 is correct on its own.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. Each operation is locally correct, but the interleaving causes T1 to mix pre-update and post-update values mid-aggregation. The problem is the schedule, not any single operation.",
+    "slideRef": "Ch10 Slide 27"
+  },
+  {
+    "id": 62,
+    "topic_group": "Ch10 Locking",
+    "topic": "Lock Types",
+    "difficulty": 2,
+    "type": "multi-select",
+    "prompt": "Which of the following are recognized SQL/DBMS lock types? (Select all that apply)",
+    "options": [
+      "Binary lock",
+      "Shared lock (read lock)",
+      "Exclusive lock (write lock)",
+      "Phantom lock",
+      "Cascading lock"
+    ],
+    "answer": [
+      0,
+      1,
+      2
+    ],
+    "explanation": "Three main lock types: binary (locked/unlocked, simplest), shared (multiple readers OK), and exclusive (one writer, blocks all others). Phantom and cascading are not standard lock types.",
+    "slideRef": "Ch10 Slide 44"
+  },
+  {
+    "id": 63,
+    "topic_group": "Ch10 Locking",
+    "topic": "Shared Lock Behavior",
+    "difficulty": 3,
+    "type": "tf",
+    "prompt": "True or False: With a shared (read) lock held on a row, another transaction can also acquire a shared lock on that same row.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. Shared locks are compatible with other shared locks \u2014 multiple readers don't conflict. But an exclusive lock cannot be acquired while any shared lock is held.",
+    "slideRef": "Ch10 Slide 45"
+  },
+  {
+    "id": 64,
+    "topic_group": "Ch10 2PL",
+    "topic": "2PL Protocol Visual",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "Looking at Figure 10.7 (Two-Phase Locking Protocol), the 'locked point' is best described as:",
+    "options": [
+      "The moment the transaction first acquires a lock",
+      "The moment the transaction holds all the locks it will ever need (the peak of the curve, between growing and shrinking)",
+      "The moment the transaction commits",
+      "The moment the transaction releases its first lock"
+    ],
+    "answer": 1,
+    "explanation": "The locked point is at the top of the curve \u2014 the transaction has finished acquiring (growing phase complete) and is about to start releasing (shrinking phase begins).",
+    "slideRef": "Ch10 Slide 49"
+  },
+  {
+    "id": 65,
+    "topic_group": "Ch10 Deadlocks",
+    "topic": "Deadlock Example",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "T1 needs to access X then Y. T2 needs to access Y then X. T1 locks X; T2 locks Y. What happens next?",
+    "options": [
+      "T1 and T2 both complete because they access data in different orders",
+      "T1 waits for Y (held by T2), and T2 waits for X (held by T1) \u2014 deadlock",
+      "T1 releases X to let T2 finish first",
+      "The DBMS automatically merges the transactions"
+    ],
+    "answer": 1,
+    "explanation": "Classic deadlock: each holds what the other needs. Without intervention (deadlock detection + abort), both wait forever.",
+    "slideRef": "Ch10 Slide 51"
+  },
+  {
+    "id": 66,
+    "topic_group": "Ch10 Deadlocks",
+    "topic": "Deadlock Condition Creation",
+    "difficulty": 3,
+    "type": "multi-select",
+    "prompt": "Per Table 10.13, which conditions are necessary for a deadlock to occur? (Select all that apply)",
+    "options": [
+      "Two or more transactions are running concurrently",
+      "Each transaction holds a lock that another transaction needs",
+      "At least one of the locks involved must be exclusive",
+      "Each transaction is waiting on a lock held by another transaction in the cycle",
+      "All transactions have the same priority",
+      "The database is being backed up"
+    ],
+    "answer": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "explanation": "Deadlock requires concurrent transactions holding locks that the others need, with at least one exclusive lock, AND a cyclic wait. Priority and backups are unrelated.",
+    "slideRef": "Ch10 Slide 52"
+  },
+  {
+    "id": 67,
+    "topic_group": "Ch10 Optimistic",
+    "topic": "Optimistic Phases Order",
+    "difficulty": 2,
+    "type": "mc",
+    "prompt": "In the optimistic approach, what is the correct order of phases?",
+    "options": [
+      "Read \u2192 Validation \u2192 Write",
+      "Validation \u2192 Read \u2192 Write",
+      "Write \u2192 Validation \u2192 Read",
+      "Read \u2192 Write \u2192 Validation"
+    ],
+    "answer": 0,
+    "explanation": "READ first (transaction executes without restrictions, gathers/computes), VALIDATION second (check no conflicts occurred), WRITE last (commit changes if validation passed; otherwise restart).",
+    "slideRef": "Ch10 Slide 60"
+  },
+  {
+    "id": 68,
+    "topic_group": "Ch10 Optimistic",
+    "topic": "Optimistic Validation Failure",
+    "difficulty": 3,
+    "type": "mc",
+    "prompt": "If a transaction fails the VALIDATION phase under the optimistic approach, what happens?",
+    "options": [
+      "Its writes are committed anyway with a warning",
+      "The transaction is rolled back and typically restarted",
+      "It blocks until the conflicting transaction completes",
+      "Its writes are merged with the conflicting transaction's writes"
+    ],
+    "answer": 1,
+    "explanation": "Validation failure means a conflict was detected. The transaction's tentative changes (still in private workspace, not yet written) are discarded and the transaction restarts.",
+    "slideRef": "Ch10 Slide 60"
+  }
+]
